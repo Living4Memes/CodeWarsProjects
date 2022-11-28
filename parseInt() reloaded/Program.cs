@@ -29,6 +29,7 @@
             { "three", 3},
             { "two", 2},
             { "one", 1},
+            { "zero", 0},
       };
       public static Dictionary<string, int> MajorParsingValues = new Dictionary<string, int>()
       {
@@ -39,17 +40,24 @@
 
       public static int ParseInt(string s)
       {
+            Console.WriteLine($"Parsing: {s}");
+
+            return WrappedParseInt(s);
+      }
+
+      private static int WrappedParseInt(string s)
+      {
             int result = 0;
             string parsingBase = s.Replace(" and ", " ");
 
             Dictionary<string, int> quantifiedValues = SplitByMajor(parsingBase);
-            
-            
+
+
             foreach (string quantifier in quantifiedValues.Keys)
             {
                   if (ContainsMajor(quantifier))
                         result += ParseInt(quantifier) * quantifiedValues[quantifier];
-                  else if (!MajorParsingValues.Keys.Contains(quantifier))
+                  else if (!MajorParsingValues.ContainsKey(quantifier))
                   {
                         if (quantifier.Contains('-'))
                         {
@@ -57,7 +65,7 @@
                               result += (ParsingValues[parts[0]] + ParsingValues[parts[1]]) * quantifiedValues[quantifier];
                         }
                         else
-                              result += ParsingValues[quantifier];
+                              result += ParsingValues[quantifier] * quantifiedValues[quantifier];
                   }
             }
 
@@ -74,7 +82,10 @@
                   if (s.Contains(majorValue))
                   {
                         result.Add(tempString.Substring(0, tempString.LastIndexOf(majorValue) -1), MajorParsingValues[majorValue]);
-                        tempString = tempString.Remove(0, tempString.LastIndexOf(majorValue) + majorValue.Length + 1);
+                        tempString = tempString.Remove(0, tempString.LastIndexOf(majorValue) + majorValue.Length);
+
+                        if(tempString.StartsWith(' '))
+                              tempString = tempString.Remove(0, 1);
                   }
 
             if (tempString.Length > 0)
@@ -90,45 +101,15 @@
                         return true;
             return false;
       }
-
-      private static (string Above, string Below) SplitString(string[] majorValues, string s)
-      {
-            string currentMax = "hundred";
-            for (int i = 0; i < majorValues.Length; i++)
-            {
-                  if (MajorParsingValues[majorValues[i]] < MajorParsingValues[currentMax])
-                  {
-                        return (s.Substring(0, s.IndexOf(currentMax) + currentMax.Length),
-                              s.Remove(0, s.IndexOf(currentMax) + currentMax.Length + 1));
-                  }
-                  
-                  currentMax = majorValues[i];
-            }
-
-            throw new Exception();
-      }
-
-      private static bool ValidValue(string[] majorValues)
-      {
-            int currentMax = -1;
-            for (int i = 0; i < majorValues.Length; i++)
-            {
-                  if (MajorParsingValues[majorValues[i]] < currentMax)
-                        return false;
-
-                  currentMax = MajorParsingValues[majorValues[i]];
-            }
-
-            return true;
-      }
 }
 
 public class Program
 {
       public static void Main(string[] args)
       {
-            //Console.WriteLine(Parser.ParseInt("four"));
-            //Console.WriteLine(Parser.ParseInt("two hundred forty-six"));
+            Console.WriteLine(Parser.ParseInt("four"));
+            Console.WriteLine(Parser.ParseInt("one hundred"));
+            Console.WriteLine(Parser.ParseInt("two hundred forty-six"));
             Console.WriteLine(Parser.ParseInt("seven hundred eighty-three thousand nine hundred and nineteen"));
       }
 }
