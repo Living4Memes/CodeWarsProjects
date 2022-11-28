@@ -1,5 +1,6 @@
 ﻿public class Parser
 {
+      // Basic values and definition
       public static Dictionary<string, int> ParsingValues = new Dictionary<string, int>()
       {
             { "ninety", 90},
@@ -31,6 +32,7 @@
             { "one", 1},
             { "zero", 0},
       };
+      // Major values (like 100, 1 000, 1 000 000, etc.)
       public static Dictionary<string, int> MajorParsingValues = new Dictionary<string, int>()
       {
             { "million", 1000000 },
@@ -38,50 +40,54 @@
             { "hundred", 100 },
       };
 
+      // For debugging
       public static int ParseInt(string s)
       {
             Console.WriteLine($"Parsing: {s}");
 
-            return WrappedParseInt(s);
+            return UnwrappedParseInt(s);
       }
 
-      private static int WrappedParseInt(string s)
+      // Main function (with implemented recursion)
+      private static int UnwrappedParseInt(string s)
       {
             int result = 0;
             string parsingBase = s.Replace(" and ", " ");
 
-            Dictionary<string, int> quantifiedValues = SplitByMajor(parsingBase);
+            List<(string Quantifier, int Value)> quantifiedValues = SplitByMajor(parsingBase);
 
-
-            foreach (string quantifier in quantifiedValues.Keys)
+            foreach ((string Quantifier, int Value) currentPair in quantifiedValues)
             {
-                  if (ContainsMajor(quantifier))
-                        result += ParseInt(quantifier) * quantifiedValues[quantifier];
-                  else if (!MajorParsingValues.ContainsKey(quantifier))
+                  if (ContainsMajor(currentPair.Quantifier))
+                        result += UnwrappedParseInt(currentPair.Quantifier) * currentPair.Value;
+                  else if (!MajorParsingValues.ContainsKey(currentPair.Quantifier))
                   {
-                        if (quantifier.Contains('-'))
+                        if (currentPair.Quantifier.Contains('-'))
                         {
-                              string[] parts = quantifier.Split('-');
-                              result += (ParsingValues[parts[0]] + ParsingValues[parts[1]]) * quantifiedValues[quantifier];
+                              string[] parts = currentPair.Quantifier.Split('-');
+                              result += (ParsingValues[parts[0]] + ParsingValues[parts[1]]) * currentPair.Value;
                         }
                         else
-                              result += ParsingValues[quantifier] * quantifiedValues[quantifier];
+                              result += ParsingValues[currentPair.Quantifier] * currentPair.Value;
                   }
             }
 
             return result;
       }
 
-      private static Dictionary<string, int> SplitByMajor(string s)
+      // Splitting by major values
+      private static List<(string Quantifier, int Value)> SplitByMajor(string s)
       {
-            // eg.: <two hundred eighty-three, 1000> (<encoded quantifier, value>)
-            Dictionary<string, int> result = new Dictionary<string, int>();
+            // (encoded quantifier, value) => eg.: (two hundred eighty-three, 1000)
+            List<(string, int)> result = new List<(string, int)>();
 
             string tempString = s;
+            // When number is described in words, all major numbers will be decreasing from start to end
+            // So basically I'm splitting by biggest major, then by lesser, then by even more lesser, etc
             foreach(string majorValue in MajorParsingValues.Keys)
-                  if (s.Contains(majorValue))
+                  if (tempString.Contains(majorValue))
                   {
-                        result.Add(tempString.Substring(0, tempString.LastIndexOf(majorValue) -1), MajorParsingValues[majorValue]);
+                        result.Add((tempString.Substring(0, tempString.LastIndexOf(majorValue) -1), MajorParsingValues[majorValue]));
                         tempString = tempString.Remove(0, tempString.LastIndexOf(majorValue) + majorValue.Length);
 
                         if(tempString.StartsWith(' '))
@@ -89,11 +95,12 @@
                   }
 
             if (tempString.Length > 0)
-                  result.Add(tempString, 1);
+                  result.Add((tempString, 1));
 
             return result;
       }
 
+      // Testing string if it contains major number for recursion
       private static bool ContainsMajor(string s)
       {
             foreach (string major in MajorParsingValues.Keys)
@@ -109,7 +116,9 @@ public class Program
       {
             Console.WriteLine(Parser.ParseInt("four"));
             Console.WriteLine(Parser.ParseInt("one hundred"));
+            Console.WriteLine(Parser.ParseInt("one hundred one"));
             Console.WriteLine(Parser.ParseInt("two hundred forty-six"));
             Console.WriteLine(Parser.ParseInt("seven hundred eighty-three thousand nine hundred and nineteen"));
+            Console.WriteLine(Parser.ParseInt("seven hundred thousand"));
       }
 }
