@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BalancedPatterns", "Balance
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "parseInt() reloaded", "parseInt() reloaded\parseInt() reloaded.csproj", "{B26E88AA-75BF-43FE-B848-1EA9F990B28E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "String-X-Iterations-String", "String-X-Iterations-String\String-X-Iterations-String.csproj", "{7435D225-17AC-4CA3-9CBE-9E10A84953D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "String-X-Iterations-String", "String-X-Iterations-String\String-X-Iterations-String.csproj", "{7435D225-17AC-4CA3-9CBE-9E10A84953D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasE91-encoding-and-decoding", "BasE91-encoding-and-decoding\BasE91-encoding-and-decoding.csproj", "{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7435D225-17AC-4CA3-9CBE-9E10A84953D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7435D225-17AC-4CA3-9CBE-9E10A84953D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7435D225-17AC-4CA3-9CBE-9E10A84953D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
