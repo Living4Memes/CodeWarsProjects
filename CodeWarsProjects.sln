@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "parseInt() reloaded", "pars
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "String-X-Iterations-String", "String-X-Iterations-String\String-X-Iterations-String.csproj", "{7435D225-17AC-4CA3-9CBE-9E10A84953D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasE91-encoding-and-decoding", "BasE91-encoding-and-decoding\BasE91-encoding-and-decoding.csproj", "{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasE91-encoding-and-decoding", "BasE91-encoding-and-decoding\BasE91-encoding-and-decoding.csproj", "{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextBiggerNumber", "NextBiggerNumber\NextBiggerNumber.csproj", "{765A8A54-DECE-4262-9B13-47DFF4D91AD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5FCCA0F-06CC-46CC-BD92-429E5E9E971D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{765A8A54-DECE-4262-9B13-47DFF4D91AD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{765A8A54-DECE-4262-9B13-47DFF4D91AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{765A8A54-DECE-4262-9B13-47DFF4D91AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{765A8A54-DECE-4262-9B13-47DFF4D91AD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
